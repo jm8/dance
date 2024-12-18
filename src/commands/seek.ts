@@ -19,6 +19,7 @@ import { SyntaxNode, Tree, TreeSitter } from "../utils/tree-sitter";
  * | Open match menu with extend | `m` (helix: select)                | `[".openMenu", { menu: "match", pass: [{ shift: "extend" }] }]` |
  * | Open right bracket menu     | `]` (helix: normal; helix: select) | `[".openMenu", { menu: "rightBracket"                       }]` |
  * | Open left bracket menu      | `[` (helix: normal; helix: select) | `[".openMenu", { menu: "leftBracket"                        }]` |
+ * | Open space menu             | `space` (helix: normal; helix: select) | `[".openMenu", { menu: "space"                              }]` |
  */
 declare module "./seek";
 

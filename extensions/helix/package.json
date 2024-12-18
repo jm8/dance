@@ -1398,6 +1398,24 @@
         }
       },
       {
+        "key": "Space",
+        "when": "editorTextFocus && dance.mode == 'helix/normal'",
+        "title": "Open space menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "space"
+        }
+      },
+      {
+        "key": "Space",
+        "when": "editorTextFocus && dance.mode == 'helix/select'",
+        "title": "Open space menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "space"
+        }
+      },
+      {
         "key": "T",
         "when": "editorTextFocus && dance.mode == 'helix/normal'",
         "title": "Select to character (excluded)",
@@ -2221,11 +2239,6 @@
         "when": "editorTextFocus && dance.mode == 'helix/normal'"
       },
       {
-        "key": "Space",
-        "command": "dance.ignore",
-        "when": "editorTextFocus && dance.mode == 'helix/normal'"
-      },
-      {
         "key": "NumPad_Add",
         "command": "dance.ignore",
         "when": "editorTextFocus && dance.mode == 'helix/normal'"
@@ -2357,11 +2370,6 @@
       },
       {
         "key": "Tab",
-        "command": "dance.ignore",
-        "when": "editorTextFocus && dance.mode == 'helix/select'"
-      },
-      {
-        "key": "Space",
         "command": "dance.ignore",
         "when": "editorTextFocus && dance.mode == 'helix/select'"
       },
