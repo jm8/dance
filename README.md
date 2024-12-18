@@ -16,5 +16,6 @@ npm run vscode:prepublish
 npm run package:pre
 npm run package-helix:pre
 ```
-
+note to self:
 Install the `dance` vcix FIRST, then the `dance-helix-keybindings`
+otherwise will not work
