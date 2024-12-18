@@ -135,6 +135,10 @@
                 }
               ],
               "text": "Select inside object"
+            },
+            "s": {
+              "command": "dance.selections.surround",
+              "text": "Surround add"
             }
           }
         },

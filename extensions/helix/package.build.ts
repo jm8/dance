@@ -106,6 +106,7 @@ export const pkg = (modules: Builder.ParsedModule[]) => ({
             "m": { command: "dance.seek.enclosing", text: "Goto matching bracket" },
             "a": { command: "dance.openMenu", args: [{ menu: "object", title: "Match around" }], text: "Select around object" },
             "i": { command: "dance.openMenu", args: [{ menu: "object", title: "Match inside", pass: [{ inner: true }] }], text: "Select inside object" },
+            "s": { command: "dance.selections.surround", text: "Surround add" }
           },
         },
 

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 import type { Argument, InputOr, RegisterOr } from ".";
-import { Context, Direction, manipulateSelectionsInteractively, moveWhile, moveWhileBackward, moveWhileForward, Positions, prompt, promptOne, promptRegexpOpts, SelectionBehavior, Selections, switchRun, validateForSwitchRun } from "../api";
+import { Context, Direction, insert, keypress, manipulateSelectionsInteractively, moveWhile, moveWhileBackward, moveWhileForward, Positions, prompt, promptOne, promptRegexpOpts, SelectionBehavior, Selections, switchRun, validateForSwitchRun } from "../api";
 import { PerEditorState } from "../state/editors";
 import { Mode } from "../state/modes";
 import type { Register } from "../state/registers";
@@ -1067,4 +1067,17 @@ function resultToString(result: unknown) {
   }
 
   throw new Error("invalid returned value by expression");
+}
+
+/**
+ * Surround add.
+ */
+export async function surround(
+  _: Context,
+) {
+  const c = await keypress(_);
+  const pairs = ['()', '{}', '[]', '<>'];
+  const p = pairs.find(p => p.includes(c));
+  const [before, after] = p ?? [c, c];
+  await insert(insert.Replace, x => before + x + after);
 }

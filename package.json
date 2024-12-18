@@ -1924,6 +1924,11 @@
         "category": "Dance"
       },
       {
+        "command": "dance.selections.surround",
+        "title": "Surround add",
+        "category": "Dance"
+      },
+      {
         "command": "dance.selections.toggleIndices",
         "title": "Toggle selection indices",
         "category": "Dance"
@@ -2750,6 +2755,10 @@
         },
         {
           "command": "dance.selections.splitLines.orLeap.backward",
+          "when": "dance.mode == 'normal'"
+        },
+        {
+          "command": "dance.selections.surround",
           "when": "dance.mode == 'normal'"
         },
         {

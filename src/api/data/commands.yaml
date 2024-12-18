@@ -2599,6 +2599,14 @@ selections.splitLines.orLeap.backward:
     qwerty: |-
       `a-s` (core: normal; helix: select)
 
+selections.surround:
+  title:
+    en: Surround add
+
+  doc:
+    en: |
+      Surround add.
+
 selections.toggleIndices:
   title:
     en: Toggle selection indices
