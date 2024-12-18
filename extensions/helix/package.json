@@ -408,6 +408,24 @@
               ]
             }
           }
+        },
+        "rightBracket": {
+          "title": "Right bracket",
+          "items": {
+            "d": {
+              "text": "Goto next diagnostic",
+              "command": "dance.seek.diagnostic"
+            }
+          }
+        },
+        "leftBracket": {
+          "title": "Left bracket",
+          "items": {
+            "d": {
+              "text": "Goto previous diagnostic",
+              "command": "dance.seek.diagnostic.backward"
+            }
+          }
         }
       }
     },
@@ -1225,6 +1243,42 @@
               "shift": "extend"
             }
           ]
+        }
+      },
+      {
+        "key": "]",
+        "when": "editorTextFocus && dance.mode == 'helix/normal'",
+        "title": "Open right bracket menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "rightBracket"
+        }
+      },
+      {
+        "key": "]",
+        "when": "editorTextFocus && dance.mode == 'helix/select'",
+        "title": "Open right bracket menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "rightBracket"
+        }
+      },
+      {
+        "key": "[",
+        "when": "editorTextFocus && dance.mode == 'helix/normal'",
+        "title": "Open left bracket menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "leftBracket"
+        }
+      },
+      {
+        "key": "[",
+        "when": "editorTextFocus && dance.mode == 'helix/select'",
+        "title": "Open left bracket menu",
+        "command": "dance.openMenu",
+        "args": {
+          "menu": "leftBracket"
         }
       },
       {

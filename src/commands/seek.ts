@@ -13,10 +13,12 @@ import { SyntaxNode, Tree, TreeSitter } from "../utils/tree-sitter";
  *
  * #### Predefined keybindings
  *
- * | Title                       | Keybinding          | Command                                                         |
- * | --------------------------- | ------------------- | --------------------------------------------------------------- |
- * | Open match menu             | `m` (helix: normal) | `[".openMenu", { menu: "match"                              }]` |
- * | Open match menu with extend | `m` (helix: select) | `[".openMenu", { menu: "match", pass: [{ shift: "extend" }] }]` |
+ * | Title                       | Keybinding                         | Command                                                         |
+ * | --------------------------- | ---------------------------------- | --------------------------------------------------------------- |
+ * | Open match menu             | `m` (helix: normal)                | `[".openMenu", { menu: "match"                              }]` |
+ * | Open match menu with extend | `m` (helix: select)                | `[".openMenu", { menu: "match", pass: [{ shift: "extend" }] }]` |
+ * | Open right bracket menu     | `]` (helix: normal; helix: select) | `[".openMenu", { menu: "rightBracket"                       }]` |
+ * | Open left bracket menu      | `[` (helix: normal; helix: select) | `[".openMenu", { menu: "leftBracket"                        }]` |
  */
 declare module "./seek";
 
@@ -878,4 +880,46 @@ function shiftWhere(
 
     return Selections.shift(selection, result[where], shift, context);
   });
+}
+
+function findLast<T>(array: T[], f: (x: T) => boolean): T | undefined {
+  for (let i = array.length - 1; i >= 0; i--) {
+    if (f(array[i])) {
+      return array[i];
+    }
+  }
+  return undefined;
+}
+
+/**
+ * Select next diagnostic.
+ *
+ * #### Variants
+ *
+ * | Title               | Identifier            | Command                                        |
+ * | ------------------- | --------------------- | ---------------------------------------------- |
+ * | Previous diagnostic | `diagnostic.backward` | `[".seek.diagnostic", { direction: -1, ... }]` |
+ */
+export function diagnostic(
+  _: Context,
+  direction: Direction = Direction.Forward,
+) {
+  const diagnostics = vscode.languages.getDiagnostics(_.editor.document.uri);
+  diagnostics.sort((a, b) => a.range.start.isBefore(b.range.start) ? -1 : (a.range.start.isEqual(b.range.start) ? 0 : 1));
+  const cursorPos = _.mainSelection.anchor;
+  let diag: vscode.Diagnostic | undefined;
+  if (direction == Direction.Forward) {
+    diag = diagnostics.find(diag => diag.range.start.isAfter(cursorPos));
+  } else if (direction == Direction.Backward) {
+    diag = findLast(diagnostics, diag => diag.range.start.isBefore(cursorPos));
+  }
+  if (!diag && diagnostics.length > 0) {
+    if (direction == Direction.Forward) {
+      diag = diagnostics[0];
+    } else if (direction == Direction.Backward) {
+      diag = diagnostics[diagnostics.length-1];
+    }
+  }
+  if (!diag) return;
+  Selections.set([new vscode.Selection(diag.range.start, diag.range.end)]);
 }

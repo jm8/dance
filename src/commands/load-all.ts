@@ -212,6 +212,7 @@ import {
 } from "./search";
 
 import {
+  diagnostic as seek_diagnostic,
   enclosing as seek_enclosing,
   leap as seek_leap,
   object as seek_object,
@@ -469,6 +470,11 @@ export const commands: Commands = function () {
     "dance.seek": new CommandDescriptor(
       "dance.seek",
       (_, argument) => _.runAsync(async (_) => await seek(_, getInputOr("input", argument), getRepetitions(_, argument), getDirection(argument), getShift(argument), argument["include"])),
+      CommandDescriptor.Flags.RequiresActiveEditor,
+    ),
+    "dance.seek.diagnostic": new CommandDescriptor(
+      "dance.seek.diagnostic",
+      (_, argument) => _.runAsync(async (_) => await seek_diagnostic(_, getDirection(argument))),
       CommandDescriptor.Flags.RequiresActiveEditor,
     ),
     "dance.seek.enclosing": new CommandDescriptor(
@@ -1099,6 +1105,12 @@ export const commands: Commands = function () {
     "dance.seek.leap.backward",
     CommandDescriptor.Flags.RequiresActiveEditor | CommandDescriptor.Flags.DoNotReplay,
     [[".seek.leap", { direction: -1, $exclude: [] }]],
+  );
+  describeAdditionalCommand(
+    commands,
+    "dance.seek.diagnostic.backward",
+    CommandDescriptor.Flags.RequiresActiveEditor | CommandDescriptor.Flags.DoNotReplay,
+    [[".seek.diagnostic", { direction: -1, $exclude: [] }]],
   );
   describeAdditionalCommand(
     commands,

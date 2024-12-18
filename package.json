@@ -1389,6 +1389,16 @@
         "category": "Dance"
       },
       {
+        "command": "dance.seek.diagnostic",
+        "title": "Select next diagnostic",
+        "category": "Dance"
+      },
+      {
+        "command": "dance.seek.diagnostic.backward",
+        "title": "Previous diagnostic",
+        "category": "Dance"
+      },
+      {
         "command": "dance.seek.enclosing",
         "title": "Select to next enclosing character",
         "category": "Dance"
@@ -2312,6 +2322,14 @@
         },
         {
           "command": "dance.seek.backward",
+          "when": "dance.mode == 'normal'"
+        },
+        {
+          "command": "dance.seek.diagnostic",
+          "when": "dance.mode == 'normal'"
+        },
+        {
+          "command": "dance.seek.diagnostic.backward",
           "when": "dance.mode == 'normal'"
         },
         {

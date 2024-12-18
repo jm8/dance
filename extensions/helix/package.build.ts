@@ -165,6 +165,26 @@ export const pkg = (modules: Builder.ParsedModule[]) => ({
             },
           },
         },
+
+        rightBracket: {
+          title: "Right bracket",
+          items: {
+            "d": {
+              "text": "Goto next diagnostic",
+              "command": "dance.seek.diagnostic"
+            },
+          }
+        },
+
+        leftBracket: {
+          title: "Left bracket",
+          items: {
+            "d": {
+              "text": "Goto previous diagnostic",
+              "command": "dance.seek.diagnostic.backward"
+            },
+          }
+        },
       },
     },
 

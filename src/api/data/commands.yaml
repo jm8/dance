@@ -1167,6 +1167,27 @@ seek.backward:
       `a-t` (kakoune: normal)
       `s-t` (helix: normal)
 
+seek.diagnostic:
+  title:
+    en: Select next diagnostic
+
+  doc:
+    en: |
+      Select next diagnostic.
+
+      #### Variants
+
+      | Title               | Identifier            | Command                                        |
+      | ------------------- | --------------------- | ---------------------------------------------- |
+      | Previous diagnostic | `diagnostic.backward` | `[".seek.diagnostic", { direction: -1, ... }]` |
+
+seek.diagnostic.backward:
+  title:
+    en: Previous diagnostic
+
+  commands: |-
+    [".seek.diagnostic", { direction: -1, $exclude: [] }]
+
 seek.enclosing:
   title:
     en: Select to next enclosing character
@@ -2701,6 +2722,16 @@ anonymous:
         `up` (core: prompt)
 
   - title:
+      en: Open left bracket menu
+
+    commands: |-
+      [".openMenu", { menu: "leftBracket" }]
+
+    keys:
+      qwerty: |-
+        `[` (helix: normal; helix: select)
+
+  - title:
       en: Open match menu
 
     commands: |-
@@ -2719,6 +2750,16 @@ anonymous:
     keys:
       qwerty: |-
         `m` (helix: select)
+
+  - title:
+      en: Open right bracket menu
+
+    commands: |-
+      [".openMenu", { menu: "rightBracket" }]
+
+    keys:
+      qwerty: |-
+        `]` (helix: normal; helix: select)
 
   - title:
       en: Show view menu
