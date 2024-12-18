@@ -139,6 +139,10 @@
             "s": {
               "command": "dance.selections.surround",
               "text": "Surround add"
+            },
+            "r": {
+              "command": "dance.selections.surroundReplace",
+              "text": "Surround replace"
             }
           }
         },

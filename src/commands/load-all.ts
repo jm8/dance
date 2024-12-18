@@ -257,6 +257,7 @@ import {
   split as selections_split,
   splitLines as selections_splitLines,
   surround as selections_surround,
+  surroundReplace as selections_surroundReplace,
   toggleIndices as selections_toggleIndices,
   trimLines as selections_trimLines,
   trimWhitespace as selections_trimWhitespace,
@@ -681,6 +682,11 @@ export const commands: Commands = function () {
     "dance.selections.surround": new CommandDescriptor(
       "dance.selections.surround",
       (_) => _.runAsync(async (_) => await selections_surround(_)),
+      CommandDescriptor.Flags.RequiresActiveEditor,
+    ),
+    "dance.selections.surroundReplace": new CommandDescriptor(
+      "dance.selections.surroundReplace",
+      (_) => _.runAsync(async (_) => await selections_surroundReplace(_)),
       CommandDescriptor.Flags.RequiresActiveEditor,
     ),
     "dance.selections.toggleIndices": new CommandDescriptor(

@@ -2607,6 +2607,14 @@ selections.surround:
     en: |
       Surround add.
 
+selections.surroundReplace:
+  title:
+    en: Surround replace
+
+  doc:
+    en: |
+      Surround replace.
+
 selections.toggleIndices:
   title:
     en: Toggle selection indices

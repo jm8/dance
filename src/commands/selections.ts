@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 import type { Argument, InputOr, RegisterOr } from ".";
-import { Context, Direction, insert, keypress, manipulateSelectionsInteractively, moveWhile, moveWhileBackward, moveWhileForward, Positions, prompt, promptOne, promptRegexpOpts, SelectionBehavior, Selections, switchRun, validateForSwitchRun } from "../api";
+import { Context, Direction, edit, insert, keypress, manipulateSelectionsInteractively, moveWhile, moveWhileBackward, moveWhileForward, pair, Positions, prompt, promptOne, promptRegexpOpts, search, SelectionBehavior, Selections, surroundedBy, switchRun, validateForSwitchRun } from "../api";
 import { PerEditorState } from "../state/editors";
 import { Mode } from "../state/modes";
 import type { Register } from "../state/registers";
@@ -12,6 +12,7 @@ import { unsafeSelections } from "../utils/misc";
 import { newRegExp } from "../utils/regexp";
 import { SettingsValidator } from "../utils/settings-validator";
 import * as TrackedSelection from "../utils/tracked-selection";
+import { object } from "./seek";
 
 /**
  * Interacting with selections.
@@ -1069,6 +1070,8 @@ function resultToString(result: unknown) {
   throw new Error("invalid returned value by expression");
 }
 
+const PAIRS = ['()', '{}', '[]', '<>'];
+
 /**
  * Surround add.
  */
@@ -1076,8 +1079,59 @@ export async function surround(
   _: Context,
 ) {
   const c = await keypress(_);
-  const pairs = ['()', '{}', '[]', '<>'];
-  const p = pairs.find(p => p.includes(c));
-  const [before, after] = p ?? [c, c];
+  const pairCharacters = PAIRS.find(p => p.includes(c));
+  const [before, after] = pairCharacters ?? [c, c];
   await insert(insert.Replace, x => before + x + after);
+}
+
+/**
+ * Surround replace.
+ */
+export async function surroundReplace(
+  _: Context,
+) {
+  const c = await keypress(_);
+  const pairCharacters = PAIRS.find(p => p.includes(c));
+  const [before, after] = pairCharacters ?? [c, c];
+
+  const p = pair(before, after);
+
+  const ranges = _.selections.map((selection) => {
+      const startRe = new RegExp("^" + p.open.source, p.open.flags);
+
+      // TODO: not have duplicate code (seek)
+      if (_.selectionBehavior === SelectionBehavior.Character) {
+        // If the selection behavior is character and the current character
+        // corresponds to the start of a pair, we select from here.
+        const searchStart = Selections.activeStart(selection, _);
+        const searchStartResult = search(Direction.Forward, startRe, searchStart);
+
+        if (searchStartResult?.[1][0].length === 1) {
+          const start = searchStartResult[0],
+                innerStart = Positions.offset(start, searchStartResult[1][0].length, _.document)!,
+                endResult = p.searchClosing(innerStart);
+
+          if (endResult === undefined) {
+            return undefined;
+          }
+
+          return new vscode.Selection(
+            start,
+            Positions.offset(endResult[0], endResult[1][0].length, _.document)!,
+          );
+        }
+      }
+
+      // Otherwise, we select from the end of the current selection.
+      return surroundedBy([p], Selections.activeStart(selection, _), true, _.document);
+    }
+  );
+
+  await edit(editBuilder => {
+    for (const range of ranges) {
+      if (!range) continue;
+      editBuilder.replace(new vscode.Range(range.start, Positions.next(range.start)!), 'X');
+      editBuilder.replace(new vscode.Range(Positions.previous(range.end)!, range.end), 'Y');
+    }
+  });
 }

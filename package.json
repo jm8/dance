@@ -1929,6 +1929,11 @@
         "category": "Dance"
       },
       {
+        "command": "dance.selections.surroundReplace",
+        "title": "Surround replace",
+        "category": "Dance"
+      },
+      {
         "command": "dance.selections.toggleIndices",
         "title": "Toggle selection indices",
         "category": "Dance"
@@ -2759,6 +2764,10 @@
         },
         {
           "command": "dance.selections.surround",
+          "when": "dance.mode == 'normal'"
+        },
+        {
+          "command": "dance.selections.surroundReplace",
           "when": "dance.mode == 'normal'"
         },
         {
