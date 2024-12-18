@@ -99,6 +99,154 @@ export const pkg = (modules: Builder.ParsedModule[]) => ({
       },
 
     "dance.menus": {
+        space: {
+          title: "Space",
+          items: {
+            "f": {
+              "text": "Open file picker",
+              "command": "workbench.action.quickOpen"
+            },
+            // "F": {
+            //   "text": "Open file picker at current working directory",
+            //   "command": "???"
+            // },
+            "b": {
+              "text": "Open buffer picker",
+              "command": "workbench.action.showAllEditors"
+            },
+            // "j": {
+            //   "text": "Open jumplist picker",
+            //   "command": "???"
+            // },
+            "s": {
+              "text": "Open symbol picker",
+              "command": "workbench.action.gotoSymbol"
+            },
+            // "S": {
+            //   "text": "Open workspace symbol picker",
+            //   "command": "???"
+            // },
+            "d": {
+              "text": "Open diagnostic picker",
+              "command": "workbench.actions.view.problems"
+            },
+            // "D": {
+            //   "text": "Open workspace diagnostic picker",
+            //   "command": "???"
+            // },
+            "a": {
+              "text": "Perform code action",
+              "command": "editor.action.quickFix"
+            },
+            // "'": {
+            //   "text": "Open last picker",
+            //   "command": "???"
+            // },
+            // "g": {
+            //   "text": "Debug",
+            //   "command": "dance.openMenu",
+            //   "args": [
+            //     {
+            //       "menu": "debug-hx",
+            //       "locked": true
+            //     }
+            //   ]
+            // },
+            // "w": {
+            //   "text": "Window",
+            //   "command": "dance.openMenu",
+            //   "args": [
+            //     {
+            //       "menu": "window-hx"
+            //     }
+            //   ]
+            // },
+            "y": {
+              "text": "Join and yank selections to clipboard",
+              "command": "dance.run",
+              "args": [
+                {
+                  "commands": [
+                    [
+                      "dance.selections.saveText",
+                      {
+                        "register": "dquote"
+                      }
+                    ],
+                    ".modes.set.normal"
+                  ]
+                }
+              ]
+            },
+            "Y": {
+              "text": "Yank main selection to clipboard",
+              "command": "dance.run",
+              "args": [
+                {
+                  "commands": [
+                    [
+                      "dance.selections.saveText",
+                      {
+                        "register": "dquote"
+                      }
+                    ],
+                    ".modes.set.normal"
+                  ]
+                }
+              ]
+            },
+            "p": {
+              "text": "Paste clipboard after selections",
+              "command": "dance.edit.insert",
+              "args": [
+                {
+                  "handleNewLine": true,
+                  "where": "end"
+                }
+              ]
+            },
+            "P": {
+              "text": "Paste clipboard before selections",
+              "command": "dance.edit.insert",
+              "args": [
+                {
+                  "handleNewLine": true,
+                  "where": "start"
+                }
+              ]
+            },
+            "R": {
+              "text": "Replace selections by clipboard content",
+              "command": "dance.edit.insert",
+              "args": [
+                {
+                  "register": "dquote"
+                }
+              ]
+            },
+            "/": {
+              "text": "Global search in workspace folder",
+              "command": "workbench.view.search.focus"
+            },
+            "k": {
+              "text": "Show docs for item under cursor",
+              "command": "editor.action.showHover"
+            },
+            "r": {
+              "text": "Rename symbol",
+              "command": "editor.action.rename"
+            },
+            // "h": {
+            //   "text": "Select symbol references",
+            //   "command": "???"
+            // },
+            "?": {
+              "text": "Open command palette",
+              "command": "workbench.action.showCommands"
+            },
+          }
+        },
+
         match: {
           title: "Match",
           items: {
