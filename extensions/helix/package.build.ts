@@ -108,6 +108,7 @@ export const pkg = (modules: Builder.ParsedModule[]) => ({
             "i": { command: "dance.openMenu", args: [{ menu: "object", title: "Match inside", pass: [{ inner: true }] }], text: "Select inside object" },
             "s": { command: "dance.selections.surround", text: "Surround add" },
             "r": { command: "dance.selections.surroundReplace", text: "Surround replace" },
+            "d": { command: "dance.selections.surroundDelete", text: "Surround delete" },
           },
         },
 

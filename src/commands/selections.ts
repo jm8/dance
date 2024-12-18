@@ -1091,9 +1091,29 @@ export async function surroundReplace(
   _: Context,
 ) {
   const c = await keypress(_);
-  const pairCharacters = PAIRS.find(p => p.includes(c));
-  const [before, after] = pairCharacters ?? [c, c];
+  const [before, after]= PAIRS.find(p => p.includes(c)) ?? [c, c];
 
+  const newC = await keypress(_);
+  const [newBefore, newAfter] = PAIRS.find(p => p.includes(newC)) ?? [newC, newC];
+
+  await doSurroundReplace(_, before, after, newBefore, newAfter);
+}
+
+/**
+ * Surround delete.
+ */
+export async function surroundDelete(
+  _: Context,
+) {
+  const c = await keypress(_);
+  const [before, after]= PAIRS.find(p => p.includes(c)) ?? [c, c];
+
+  const [newBefore, newAfter] = ['', ''];
+
+  await doSurroundReplace(_, before, after, newBefore, newAfter);
+}
+
+async function doSurroundReplace(_: Context, before: string, after: string, newBefore: string, newAfter: string) {
   const p = pair(before, after);
 
   const ranges = _.selections.map((selection) => {
@@ -1130,8 +1150,8 @@ export async function surroundReplace(
   await edit(editBuilder => {
     for (const range of ranges) {
       if (!range) continue;
-      editBuilder.replace(new vscode.Range(range.start, Positions.next(range.start)!), 'X');
-      editBuilder.replace(new vscode.Range(Positions.previous(range.end)!, range.end), 'Y');
+      editBuilder.replace(new vscode.Range(range.start, Positions.next(range.start)!), newBefore);
+      editBuilder.replace(new vscode.Range(Positions.previous(range.end)!, range.end), newAfter);
     }
   });
 }

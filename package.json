@@ -1929,6 +1929,11 @@
         "category": "Dance"
       },
       {
+        "command": "dance.selections.surroundDelete",
+        "title": "Surround delete",
+        "category": "Dance"
+      },
+      {
         "command": "dance.selections.surroundReplace",
         "title": "Surround replace",
         "category": "Dance"
@@ -2764,6 +2769,10 @@
         },
         {
           "command": "dance.selections.surround",
+          "when": "dance.mode == 'normal'"
+        },
+        {
+          "command": "dance.selections.surroundDelete",
           "when": "dance.mode == 'normal'"
         },
         {

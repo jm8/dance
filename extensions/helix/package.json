@@ -143,6 +143,10 @@
             "r": {
               "command": "dance.selections.surroundReplace",
               "text": "Surround replace"
+            },
+            "d": {
+              "command": "dance.selections.surroundDelete",
+              "text": "Surround delete"
             }
           }
         },

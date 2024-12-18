@@ -2607,6 +2607,14 @@ selections.surround:
     en: |
       Surround add.
 
+selections.surroundDelete:
+  title:
+    en: Surround delete
+
+  doc:
+    en: |
+      Surround delete.
+
 selections.surroundReplace:
   title:
     en: Surround replace
